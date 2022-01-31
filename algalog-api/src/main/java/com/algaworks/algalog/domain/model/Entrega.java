@@ -24,6 +24,7 @@ import javax.validation.groups.Default;
 import org.hibernate.annotations.ManyToAny;
 
 import com.algaworks.algalog.api.model.Ocorrencia;
+import com.algaworks.algalog.domain.exception.NegocioException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -75,7 +76,23 @@ public class Entrega {
 		
 		return ocorrencia;
 	}
+
+
+	public void finalizar() {
+		if(!podeSerFinalizada()) {
+			throw new NegocioException("Entrega nao pode ser finalizada");
+		}
+		
+		setStatus(StatusEntrega.FINALIZADA);
+		setDataFinalizacao(OffsetDateTime.now());
+	}
+	public boolean podeSerFinalizada() {	
+		return StatusEntrega.PENDENTE.equals(getStatus());
+	}
 	
+	public boolean naoPodeSerFinalizada() {
+		return !podeSerFinalizada();
+	}
 	
 
 }
