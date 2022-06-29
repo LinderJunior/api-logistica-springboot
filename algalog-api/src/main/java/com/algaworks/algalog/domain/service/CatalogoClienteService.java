@@ -19,6 +19,16 @@ public class CatalogoClienteService {
 				.orElseThrow(() -> new NegocioException("Cliente nao encontrado"));
 		
 	}
+	/*
+	public Cliente salvar(Cliente cliente) {
+		boolean emaiEmUso = clienteRepository.findByEmail(cliente.getEmail())
+				.stream()
+				.)
+		
+		return cliente;
+		
+	}
+	*/
 	
 	
 	@Transactional
@@ -26,16 +36,14 @@ public class CatalogoClienteService {
 		boolean emailEmUso = clienteRepository.findByEmail(cliente.getEmail())
 				.stream()
 				.anyMatch(clienteExistente-> !clienteExistente.equals(cliente));
-		
 		if(emailEmUso) {
 			throw new NegocioException("Ja existe um cliente cadastrado com este email");
 		}
 		
-		
-		
 		return clienteRepository.save(cliente);
 
 	}
+	
 	@Transactional
 	public void excluir(Long clienteId) {
 		clienteRepository.deleteById(clienteId);
