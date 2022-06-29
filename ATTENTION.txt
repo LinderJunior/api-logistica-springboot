@@ -1,0 +1,2 @@
+IMPORTANTE
+*Se estiver a dar erro o Get e o Set, apagar a pasta do lombok (C:\Users\Developer\.m2\repository\org\projectlombok\lombok)
